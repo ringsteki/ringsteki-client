@@ -32,17 +32,22 @@ module.exports = (env) => {
     // Configuration for client-side bundle suitable for running in browsers
     const clientBundleOutputDir = './dist';
     const clientBundleConfig = merge(sharedConfig(), {
-        entry: { 'bundle': (isDevBuild ? [
-            'react-hot-loader/patch',
-            'webpack/hot/only-dev-server'] : []).concat(['./index.jsx', './less/site.less', 'babel-polyfill']) },
+        entry: {
+            'bundle': (isDevBuild ? [
+                'react-hot-loader/patch',
+                'webpack/hot/only-dev-server'] : []).concat(['./index.jsx', './less/site.less', 'babel-polyfill'])
+        },
         devServer: {
             contentBase: './assets',
             hot: true,
             host: process.env.HOST || 'localhost',
-            proxy: [{
-                context: ['/**', '!/img/**', '!/fonts/**', '!/sound/**'],
-                target: `http://${process.env.HOST || 'localhost'}:4000`
-            }]
+            historyApiFallback: {
+                index: 'index.html'
+            }
+            /*            proxy: [{
+                            context: ['/**', '!/img/**', '!/fonts/**', '!/sound/**'],
+                            target: `http://${process.env.HOST || 'localhost'}:4000`
+                        }]*/
         },
         devtool: isDevBuild ? 'inline-source-map' : 'source-map',
         module: {

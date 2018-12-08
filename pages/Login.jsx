@@ -17,11 +17,8 @@ class Login extends React.Component {
 
     componentWillReceiveProps(props) {
         if(props.loggedIn) {
-            if(this.props.socket) {
-                this.props.socket.emit('authenticate', props.loggedInToken);
-            }
-
-            this.props.navigate('/');
+            props.authenticateSocket();
+            props.navigate('/');
         }
     }
 
@@ -36,7 +33,7 @@ class Login extends React.Component {
             <div className='col-sm-6 col-sm-offset-3'>
                 { errorBar }
                 <Panel title='Login'>
-                    <Form name='login' apiLoading={ this.props.apiLoading } buttonText='Log In' onSubmit={ this.onLogin }>
+                    <Form name='login' apiLoading={ this.props.apiLoading } buttonClass='col-sm-offset-2 col-sm-3' buttonText='Log In' onSubmit={ this.onLogin }>
                         <div className='form-group'>
                             <div className='col-sm-offset-2 col-sm-10'>
                                 <Link href='/forgot'>Forgot your password?</Link>
@@ -53,6 +50,7 @@ Login.propTypes = {
     apiLoading: PropTypes.bool,
     apiMessage: PropTypes.string,
     apiSuccess: PropTypes.bool,
+    authenticateSocket: PropTypes.func,
     loggedIn: PropTypes.bool,
     loggedInToken: PropTypes.string,
     loggedInUser: PropTypes.object,

@@ -59,7 +59,6 @@ class BlockList extends React.Component {
             successPanel = (
                 <AlertPanel message='Block list entry added successfully' type={ 'success' } />
             );
-            this.props.socket.emit('authenticate', this.props.token);
         }
 
         if(this.props.blockListDeleted) {
@@ -69,7 +68,6 @@ class BlockList extends React.Component {
             successPanel = (
                 <AlertPanel message='Block list entry removed successfully' type={ 'success' } />
             );
-            this.props.socket.emit('authenticate', this.props.token);
         }
 
         let content;
@@ -96,7 +94,8 @@ class BlockList extends React.Component {
             </table>
         );
 
-        let errorBar = this.props.apiSuccess === false ? <AlertPanel type='error' message={ this.props.apiMessage } /> : null;
+        let errorBar = this.props.apiRequestSuccess === false ? <AlertPanel type='error' message={ 'An error occurred loading the block list.  Please try again later.' } /> : null;
+        errorBar = errorBar || (this.props.apiSuccess === false ? <AlertPanel type='error' message={ this.props.apiMessage } /> : null);
 
         if(this.props.apiLoading) {
             content = <div>Loading block list from the server...</div>;
@@ -136,6 +135,7 @@ BlockList.propTypes = {
     addBlockListEntry: PropTypes.func,
     apiLoading: PropTypes.bool,
     apiMessage: PropTypes.string,
+    apiRequestSuccess: PropTypes.bool,
     apiSuccess: PropTypes.bool,
     blockList: PropTypes.array,
     blockListAdded: PropTypes.bool,
@@ -151,9 +151,10 @@ BlockList.propTypes = {
 
 function mapStateToProps(state) {
     return {
-        apiLoading: state.api.ADD_BLOCKLIST ? state.api.ADD_BLOCKLIST.loading : undefined,
+        apiLoading: state.api.REQUEST_BLOCKLIST ? state.api.REQUEST_BLOCKLIST.loading : undefined,
         apiMessage: state.api.ADD_BLOCKLIST ? state.api.ADD_BLOCKLIST.message : undefined,
         apiSuccess: state.api.ADD_BLOCKLIST ? state.api.ADD_BLOCKLIST.success : undefined,
+        apiRequestSuccess: state.api.REQUEST_BLOCKLIST ? state.api.REQUEST_BLOCKLIST.success : undefined,
         blockList: state.user.blockList,
         blockListAdded: state.user.blockListAdded,
         blockListDeleted: state.user.blockListDeleted,

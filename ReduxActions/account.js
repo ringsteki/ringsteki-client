@@ -21,20 +21,20 @@ export function loginAccount(auth) {
             url: '/api/account/login',
             type: 'POST',
             data: JSON.stringify({ username: auth.username, password: auth.password }),
-            contentType: 'application/json',
-            skipAuth: true
-        }
+            contentType: 'application/json'
+        },
+        skipAuth: true
     };
 }
 
-export function logoutAccount(tokenId) {
+export function logoutAccount(token, refreshToken) {
     return {
         types: ['LOGOUT_ACCOUNT', 'ACCOUNT_LOGGEDOUT'],
         shouldCallAPI: () => true,
         APIParams: {
             url: '/api/account/logout',
             type: 'POST',
-            data: JSON.stringify({ tokenId: tokenId }),
+            data: JSON.stringify({ token: token, refreshToken: refreshToken }),
             contentType: 'application/json'
         }
     };
@@ -59,7 +59,7 @@ export function logout() {
             state.games.socket.disconnect();
         }
 
-        return dispatch(logoutAccount(state.auth.refreshToken.id));
+        return dispatch(logoutAccount(state.auth.token, state.auth.refreshToken));
     };
 }
 
