@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const merge = require('webpack-merge');
+const fs = require('fs');
 var AssetsPlugin = require('assets-webpack-plugin');
 var assetsPluginInstance = new AssetsPlugin({ filename: 'assets.json' });
 
@@ -24,7 +25,15 @@ module.exports = (env) => {
             rules: [
                 { test: /\.jsx?/, exclude: /node_modules/, loader: 'babel-loader' },
                 { test: /.(png|woff(2)?|eot|ttf|svg)(\?[a-z0-9=.]+)?$/, use: 'url-loader?limit=25000' },
-                { test: /\.json$/, loader: 'json-loader' }
+                {
+                    type: 'javascript/auto',
+                    test: /\.(json)/,
+                    exclude: /(node_modules|bower_components)/,
+                    use: [{
+                        loader: 'file-loader',
+                        options: { name: '[name].[ext]' }
+                    }]
+                }
             ]
         }
     });
@@ -37,7 +46,13 @@ module.exports = (env) => {
                 'react-hot-loader/patch',
                 'webpack/hot/only-dev-server'] : []).concat(['./index.jsx', './less/site.less', 'babel-polyfill'])
         },
+        mode: 'development',
         devServer: {
+            https: {
+                key: fs.readFileSync('./server.key'),
+                cert: fs.readFileSync('./server.crt'),
+                ca: fs.readFileSync('./rootCA.pem')
+            },
             contentBase: './assets',
             hot: true,
             host: process.env.HOST || 'localhost',

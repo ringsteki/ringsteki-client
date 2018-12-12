@@ -31,7 +31,7 @@ class DeckEditor extends React.Component {
         };
 
         if(props.deck) {
-            this.state.deckId = props.deck._id;
+            this.state.deckId = props.deck.id;
             this.state.deckName = props.deck.name;
             this.state.plotCards = props.deck.plotCards;
             this.state.drawCards = props.deck.drawCards;
@@ -102,6 +102,10 @@ class DeckEditor extends React.Component {
     }
 
     formatCardListItem(card) {
+        if(!card.card) {
+            return card.code;
+        }
+
         if(card.card.custom) {
             let typeCode = card.card.type;
             let typeName = typeCode[0].toUpperCase() + typeCode.slice(1);
@@ -444,7 +448,10 @@ class DeckEditor extends React.Component {
             <div>
                 <div className='form-group'>
                     <div className='col-xs-12 deck-buttons'>
-                        <span className='col-xs-2'><button className='' ref='submit' type='submit' className='btn btn-primary' onClick={ this.onSaveClick.bind(this) }>Save</button></span>
+
+                        <span className='col-xs-2'>
+                            <button ref='submit' type='submit' className='btn btn-primary' onClick={ this.onSaveClick.bind(this) }>Save { this.props.apiState && this.props.apiState.loading && <span className='spinner button-spinner' /> }</button>
+                        </span>
                         <button ref='submit' type='button' className='btn btn-primary' onClick={ this.onCancelClick.bind(this) }>Cancel</button>
                     </div>
                 </div>
@@ -494,7 +501,7 @@ class DeckEditor extends React.Component {
 
                     <div className='form-group'>
                         <div className='col-sm-offset-3 col-sm-8'>
-                            <button ref='submit' type='submit' className='btn btn-primary' onClick={ this.onSaveClick.bind(this) }>Save</button>
+                            <button ref='submit' type='submit' className='btn btn-primary' onClick={ this.onSaveClick.bind(this) }>Save { this.props.apiState && this.props.apiState.loading && <span className='spinner button-spinner' /> }</button>
                         </div>
                     </div>
                 </form>
@@ -506,6 +513,7 @@ class DeckEditor extends React.Component {
 DeckEditor.displayName = 'DeckEditor';
 DeckEditor.propTypes = {
     agendas: PropTypes.object,
+    apiState: PropTypes.object,
     banners: PropTypes.array,
     cards: PropTypes.object,
     deck: PropTypes.object,
@@ -521,6 +529,7 @@ DeckEditor.propTypes = {
 function mapStateToProps(state) {
     return {
         agendas: state.cards.agendas,
+        apiState: state.api.SAVE_DECK,
         banners: state.cards.banners,
         cards: state.cards.cards,
         decks: state.cards.decks,

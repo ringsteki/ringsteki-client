@@ -30,7 +30,7 @@ const routes = [
     { path: '/blocklist', action: () => <BlockList key='blocklist'/> },
     { path: '/decks', action: () => <Decks key='decks'/> },
     { path: '/decks/add', action: () => <AddDeck key='adddecks'/> },
-    { path: '/decks/edit/:id([a-f\\d]{24})', action: context => <EditDeck key='editdeck' deckId={ context.params.id } /> },
+    { path: '/decks/edit/:id([\\d]+)', action: context => <EditDeck key='editdeck' deckId={ context.params.id } /> },
     { path: '/forgot', action: () => <ForgotPassword key='forgotpassword'/> },
     { path: '/how-to-play', action: () => <HowToPlay key='howtoplay'/> },
     { path: '/login', action: () => <Login key='login'/> },
