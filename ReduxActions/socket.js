@@ -32,7 +32,7 @@ export function sendSocketMessage(message, ...args) {
                 dispatch(socketMessageSent(message));
             })
             .catch(err => {
-                if(!err.message && err.includes('authorized')) {
+                if(err.message.includes('unauthorized')) {
                     dispatch(authenticate());
                 }
             });
@@ -89,12 +89,14 @@ export function reconnectLobbySocket() {
     return (dispatch, getState) => {
         let state = getState();
 
-        if(state.lobby.socket && state.auth.token) {
-            dispatch(lobbyDisconnected());
-            state.lobby.socket.stop().then(() => {
-                dispatch(lobbyConnecting(state.lobby.socket));
+        if(!state.lobby.connected) {
+            return;
+        }
 
-                connectSocket(state.lobby.socket, dispatch);
+        if(state.lobby.socket && state.auth.token) {
+            dispatch(lobbyReconnecting());
+            state.lobby.socket.stop().then(() => {
+                connectSocket(state.lobby.socket, dispatch, getState);
             });
         }
     };
@@ -137,8 +139,16 @@ export function nodeStatusReceived(status) {
 }
 
 function connectSocket(socket, dispatch, getState) {
+    let state = getState();
+
+    if(state.lobby.connected || state.lobby.connecting) {
+        return;
+    }
+
+    dispatch(lobbyConnecting(socket));
+
     socket.start()
-        .then(() => dispatch(lobbyConnected()))
+        .then(() => dispatch(lobbyConnected(socket)))
         .catch(() => {
             let attempt = getState().lobby.connectionAttempt;
             let maxDelay = 5000;
@@ -168,12 +178,11 @@ export function connectLobby() {
         socket.onclose(error => {
             dispatch(lobbyDisconnected());
 
-            if(error) {
+            if(error || getState().lobby.reconnecting) {
                 dispatch(reconnectSocket(socket));
             }
         });
 
-        dispatch(lobbyConnecting(socket));
         connectSocket(socket, dispatch, getState);
 
         socket.on('games', games => {
@@ -186,6 +195,10 @@ export function connectLobby() {
 
         socket.on('newgame', game => {
             dispatch(lobbyMessageReceived('newgame', game));
+        });
+
+        socket.on('removegame', gameId => {
+            dispatch(lobbyMessageReceived('removegame', gameId));
         });
 
         socket.on('joinfailed', reason => {

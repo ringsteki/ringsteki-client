@@ -15,6 +15,10 @@ class Form extends React.Component {
         this.state = {};
 
         this.onSubmit = this.onSubmit.bind(this);
+
+        for(let field of formFields[props.name]) {
+            this.state[field.name] = '';
+        }
     }
 
     componentDidMount() {
