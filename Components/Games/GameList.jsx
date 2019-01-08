@@ -64,12 +64,12 @@ class GameList extends React.Component {
         return true;
     }
 
-    getPlayerCards(player, firstPlayer) {
+    getPlayerCards(game, player, firstPlayer) {
         if(firstPlayer) {
             return (<div className='game-faction-row first-player'>
                 { this.getPlayerNameAndAvatar(player, firstPlayer) }
-                <div className='agenda-mini'>{ <img className='img-responsive' src={ `/img/cards/${player.agenda || 'cardback'}.png` } /> }</div>
-                <div className='faction-mini'>{ <img className='img-responsive' src={ `/img/cards/${player.faction || 'cardback'}.png` } /> }</div>
+                { game.started && <div className='agenda-mini'><img className='img-responsive' src={ `/img/cards/${player.agenda || 'cardback'}.png` } /></div> }
+                { game.started && <div className='faction-mini'><img className='img-responsive' src={ `/img/cards/${player.faction || 'cardback'}.png` } /></div> }
             </div>);
         }
 
@@ -83,14 +83,14 @@ class GameList extends React.Component {
     getPlayerNameAndAvatar(player, firstPlayer) {
         if(firstPlayer) {
             return (<div className='game-player-name'>
-                <span className='gamelist-avatar'><Avatar username={ player.name } /></span>
-                <span className='bold'>{ player.name }</span>
+                <span className='gamelist-avatar'><Avatar username={ player } /></span>
+                <span className='bold'>{ player }</span>
             </div>);
         }
 
         return (<div className='game-player-name'>
-            <span className='bold'>{ player.name }</span>
-            <span className='gamelist-avatar'><Avatar username={ player.name } /></span>
+            <span className='bold'>{ player }</span>
+            <span className='gamelist-avatar'><Avatar username={ player } /></span>
         </div>);
     }
 
@@ -102,9 +102,9 @@ class GameList extends React.Component {
                 'other-player': !firstPlayer
             });
 
-            let retPlayer = (<div key={ player.name } className={ classes }>
+            let retPlayer = (<div key={ player } className={ classes }>
                 <div>
-                    { this.getPlayerCards(player, firstPlayer) }
+                    { this.getPlayerCards(game, player, firstPlayer) }
                 </div>
             </div>);
 
@@ -116,13 +116,13 @@ class GameList extends React.Component {
         if(players.length === 1) {
             if(this.canJoin(game)) {
                 players.push(
-                    <div key={ players[0].name } className={ 'game-player-row other-player' }>
+                    <div key={ players[0] } className={ 'game-player-row other-player' }>
                         <div className='game-faction-row other-player'>
                             <button className='btn btn-primary gamelist-button img-responsive' onClick={ event => this.joinGame(event, game) }>Join</button>
                         </div>
                     </div>);
             } else {
-                players.push(<div key={ players[0].name } className='game-faction-row other-player' />);
+                players.push(<div key={ players[0] } className='game-faction-row other-player' />);
             }
         }
 
@@ -149,7 +149,7 @@ class GameList extends React.Component {
                 timeDifference = 0;
             }
 
-            let formattedTime = moment.utc(timeDifference).format('HH:mm');
+            let formattedTime = game.started ? moment.utc(timeDifference).format('HH:mm') : 'Not Started';
 
             gamesToReturn.push((
                 <div key={ game.id }>
@@ -193,7 +193,7 @@ class GameList extends React.Component {
         }
 
         return (
-            <div>
+            <div key={ gameType }>
                 <div className={ gameHeaderClass }>{ gameType } ({ gamesToReturn.length })
                 </div>
                 { gamesToReturn }
