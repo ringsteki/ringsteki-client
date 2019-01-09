@@ -185,27 +185,31 @@ export function connectLobby() {
 
         connectSocket(socket, dispatch, getState);
 
-        socket.on('games', games => {
+        socket.on('GameList', games => {
             dispatch(lobbyMessageReceived('games', games));
         });
 
-        socket.on('users', users => {
+        socket.on('UserList', users => {
             dispatch(lobbyMessageReceived('users', users));
         });
 
-        socket.on('newgame', game => {
+        socket.on('NewGame', game => {
             dispatch(lobbyMessageReceived('newgame', game));
         });
 
-        socket.on('removegame', gameId => {
+        socket.on('RemoveGame', gameId => {
             dispatch(lobbyMessageReceived('removegame', gameId));
         });
 
-        socket.on('joinfailed', reason => {
+        socket.on('UpdateGame', game => {
+            dispatch(lobbyMessageReceived('updategame', game));
+        });
+
+        socket.on('JoinFailed', reason => {
             dispatch(lobbyMessageReceived('joinfailed', reason));
         });
 
-        socket.on('lobbychat', message => {
+        socket.on('LobbyChatMessage', message => {
             dispatch(lobbyMessageReceived('lobbychat', message));
         });
 
@@ -213,7 +217,7 @@ export function connectLobby() {
         //     dispatch(lobbyMessageReceived('banner', notice));
         // });
 
-        socket.on('gamestate', game => {
+        socket.on('GameState', game => {
             state = getState();
             dispatch(lobbyMessageReceived('gamestate', game, state.account.user ? state.account.user.username : undefined));
         });
@@ -230,7 +234,7 @@ export function connectLobby() {
         //     dispatch(nodeStatusReceived(status));
         // });
 
-        socket.on('removemessage', messageId => {
+        socket.on('RemoveLobbyMessage', messageId => {
             dispatch(lobbyMessageReceived('removemessage', messageId));
         });
     };

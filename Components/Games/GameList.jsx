@@ -27,7 +27,7 @@ class GameList extends React.Component {
         if(game.needsPassword) {
             this.props.joinPasswordGame(game, 'Join');
         } else {
-            this.props.socket.emit('joingame', game.id);
+            this.props.sendSocketMessage('joingame', game.id, '');
         }
     }
 
@@ -74,8 +74,8 @@ class GameList extends React.Component {
         }
 
         return (<div className='game-faction-row other-player'>
-            <div className='faction-mini'>{ <img className='img-responsive' src={ `/img/cards/${player.faction || 'cardback'}.png` } /> }</div>
-            <div className='agenda-mini'>{ <img className='img-responsive' src={ `/img/cards/${player.agenda || 'cardback'}.png` } /> }</div>
+            { game.started && <div className='faction-mini'><img className='img-responsive' src={ `/img/cards/${player.faction || 'cardback'}.png` } /></div> }
+            { game.started && <div className='agenda-mini'><img className='img-responsive' src={ `/img/cards/${player.agenda || 'cardback'}.png` } /></div> }
             { this.getPlayerNameAndAvatar(player, firstPlayer) }
         </div>);
     }
@@ -118,7 +118,7 @@ class GameList extends React.Component {
                 players.push(
                     <div key={ players[0] } className={ 'game-player-row other-player' }>
                         <div className='game-faction-row other-player'>
-                            <button className='btn btn-primary gamelist-button img-responsive' onClick={ event => this.joinGame(event, game) }>Join</button>
+                            <button disabled={ !this.props.user } className='btn btn-primary gamelist-button img-responsive' onClick={ event => this.joinGame(event, game) }>Join</button>
                         </div>
                     </div>);
             } else {
@@ -238,6 +238,7 @@ GameList.propTypes = {
     gameFilter: PropTypes.object,
     games: PropTypes.array,
     joinPasswordGame: PropTypes.func,
+    sendSocketMessage: PropTypes.func,
     showNodes: PropTypes.bool,
     socket: PropTypes.object,
     user: PropTypes.object

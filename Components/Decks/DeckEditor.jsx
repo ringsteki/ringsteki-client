@@ -7,6 +7,7 @@ import Input from '../Form/Input';
 import Select from '../Form/Select';
 import Typeahead from '../Form/Typeahead';
 import TextArea from '../Form/TextArea';
+import ApiStatus from '../Site/ApiStatus';
 import * as actions from '../../actions';
 
 class DeckEditor extends React.Component {
@@ -446,9 +447,10 @@ class DeckEditor extends React.Component {
 
         return (
             <div>
+                <ApiStatus apiState={ this.props.apiState } successMessage='Deck saved successfully.' />
+
                 <div className='form-group'>
                     <div className='col-xs-12 deck-buttons'>
-
                         <span className='col-xs-2'>
                             <button ref='submit' type='submit' className='btn btn-primary' onClick={ this.onSaveClick.bind(this) }>Save { this.props.apiState && this.props.apiState.loading && <span className='spinner button-spinner' /> }</button>
                         </span>
