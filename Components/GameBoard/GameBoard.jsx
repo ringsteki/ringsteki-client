@@ -306,8 +306,7 @@ export class GameBoard extends React.Component {
                     onCardMouseOver={ this.onMouseOver }
                     onSubmit={ this.props.submitRookeryPrompt }
                     packs={ this.props.packs }
-                    players={ Object.values(this.props.currentGame.players) }
-                    restrictedList={ this.props.restrictedList } />);
+                    players={ Object.values(this.props.currentGame.players) } />);
         }
 
         return [
@@ -491,7 +490,6 @@ GameBoard.propTypes = {
     dispatch: PropTypes.func,
     navigate: PropTypes.func,
     packs: PropTypes.array,
-    restrictedList: PropTypes.array,
     rookeryDeck: PropTypes.object,
     sendGameMessage: PropTypes.func,
     setContextMenu: PropTypes.func,
@@ -510,7 +508,6 @@ function mapStateToProps(state) {
         cards: state.cards.cards,
         currentGame: state.lobby.currentGame,
         packs: state.cards.packs,
-        restrictedList: state.cards.restrictedList,
         rookeryDeck: state.prompt.rookeryDeck,
         socket: state.lobby.socket,
         timerLimit: state.prompt.timerLimit,
