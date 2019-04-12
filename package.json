@@ -8,7 +8,8 @@
     "build-vendor": "webpack -p --config webpack.config.vendor.js --env.prod",
     "build-vendor-dev": "webpack --config webpack.config.vendor.js",
     "build": "webpack -p --config webpack.config.js --env.prod",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "start:dev": "HOST=0.0.0.0 SERVER_HOST=ringsteki-server npm run start"
   },
   "repository": {
     "type": "git",

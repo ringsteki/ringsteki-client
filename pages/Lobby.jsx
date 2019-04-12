@@ -75,7 +75,11 @@ class Lobby extends React.Component {
                 </SideBar>
                 <div className='col-sm-offset-1 col-sm-10'>
                     <div className='main-header'>
-                        <span className='text-center'><h1>A # LCG second edition</h1></span>
+                        <div>
+                            <img className='header-image' src='/img/ring_script.png' />
+                            <img className='header-image' src='/img/lotr_lcg_logo.png'/>
+                            <img className='header-image' src='/img/ring_script.png' />
+                        </div>
                     </div>
                 </div>
                 { /* <div className='col-sm-offset-1 col-sm-10'>

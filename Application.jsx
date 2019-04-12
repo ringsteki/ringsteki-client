@@ -42,8 +42,8 @@ class Application extends React.Component {
 
         this.props.loadCards();
         this.props.loadPacks();
-        this.props.loadFactions();
-        this.props.loadRestrictedList();
+        // this.props.loadFactions();
+        // this.props.loadRestrictedList();
 
         $(document).ajaxError((event, xhr) => {
             if(xhr.status === 403) {
@@ -91,7 +91,7 @@ class Application extends React.Component {
         }
 
         return (<div className={ backgroundClass }>
-            <NavBar title='The Iron Throne' />
+            <NavBar title='Ringsteki' />
             <div className='wrapper'>
                 <div className='container content'>
                     <ErrorBoundary navigate={ this.props.navigate } errorPath={ this.props.path } message={ 'We\'re sorry - something\'s gone wrong.' }>
