@@ -7,11 +7,11 @@ class About extends React.Component {
     render() {
         return (
             <div className='col-xs-12 full-height'>
-                <Panel title='About The Iron Throne - Help and information'>
-                    <a className='btn btn-danger btn-lg pull-right' target='_blank' href='https://github.com/cryogen/throneteki/issues'>Report Problems</a>
+                <Panel title='About Ringsteki - Help and information'>
+                    <a className='btn btn-danger btn-lg pull-right' target='_blank' href='https://github.com/ringsteki/ringsteki/issues'>Report Problems</a>
                     <h3>What is this?</h3>
 
-                    <p>This site was setup to allow you to play A Game Of Thrones 2.0, an LCG from Fantasy Flight Games (FFG) in your browser.</p>
+                    <p>This site was setup to allow you to play The Lord of the Rings Card Game, an LCG from Fantasy Flight Games (FFG) in your browser.</p>
 
                     <h3>That's pretty cool!  But how does any of this work?</h3>
                     <p>Head on over to the <Link href='/how-to-play'>How To Play guide</Link> for a thorough explanation.</p>
@@ -32,11 +32,10 @@ class About extends React.Component {
 
                     <h3>Can I help?</h3>
                     <p>Sure!  The project is all written in Javascript.  The server is node.js and the client is React.js.  The source code can be found in the&nbsp;
-                        <a target='_blank' href='http://github.com/cryogen/throneteki'>GitHub Repository</a>.  Check out the code and instructions on there on how to get started and hack away!  See the card implementation
-                status list above to have a look at what needs to be done.  If you want to join the dev discord, or ask any other question, send me a note on here, over at&nbsp;
-                        <a target='_blank' href='http://www.twitter.com/cryogen'>Twitter</a> or post in the AGoT Facebook group.  I'll likely find it.
+                        <a target='_blank' href='https://github.com/ringsteki/ringsteki'>GitHub Repository</a>.  Check out the code and instructions on there on how to get started and hack away!  See the card implementation
+                status list above to have a look at what needs to be done.  If you want to join the dev discord, or ask any other question, send me a note on here, email <a target='_blank' href='mailto:devquestions@ringsteki.net'>devquestions@ringsteki.net</a> or post in the LOTR LCG Facebook group.  I'll likely find it.
                     </p>
-
+                    { /*hiding the donations section for now
                     <h4>Donations</h4>
                     I was always reluctant to accept donations but since I've been asked a few times I thought I'd put up a small section about it here.
 
@@ -51,14 +50,13 @@ class About extends React.Component {
                     If, after the annnual bills for that are paid up, there is any money left over, I'll put it towards the following years expenses.
                     Also, this is not required to continue to use and enjoy the site and will not give anything in return (other than my sincerce gratitude and potentially better hardware for the site to run on).
                     I will also put a donation report in with the monthly reports that I'm publishing so that you know where your donations are going.
-
+                    */}
                     <h2>Special Thanks</h2>
-                    <p>I'd like to thank mtgred, and the whole of the jinteki.net development team(except whoever decided to write the code in clojure, not you. - just kidding!) as without their
-                work to use as a guide and as inspiration, this site would not be where it is today.  To say jinteki is an inspiration is an understatement.
+                    <p>I'd like to thank cryogen, and the whole of the throneteki.net development team as without their work to use as a guide and as inspiration, this site would not be where it is today.  To say throneteki is an inspiration is an understatement.
                     </p>
 
                     <h2>Additional Notes</h2>
-                    <p>The Game of Thrones living card game, the artwork and many other things are all copyright Fantasy Flight Games and I make no claims of ownership or otherwise of any of the
+                    <p>The Lord of the Rings living card game, the artwork and many other things are all copyright Fantasy Flight Games and I make no claims of ownership or otherwise of any of the
                 artwork or trademarks.  This site exists for passionate fans to play a game they enjoy and augment, rather than replace, the in person LCG.  FFG does not endorse, support, and is not
                 involved with, this site in any way.
                     </p>

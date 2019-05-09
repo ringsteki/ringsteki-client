@@ -12,7 +12,7 @@ const Privacy = () => {
 
                 <h3>What data we store</h3>
                 <p>When you sign up for the site (which is required to play or spectate on games), we collect a username, your email address, a password and the IP address of the computer you're using when you sign up.</p>
-                <p>When you play games on the site, we collect information about the games you play(what faction/agenda you're using, the deck you are using to play with - but not its contents, who you are playing against and the outcome of the game).</p>
+                <p>When you play games on the site, we collect information about the games you play(which heroes/spheres you're using, the deck you are using to play with, who you are playing with and the outcome of the game).</p>
                 <p>If you chat in the lobby, your messages are stored.</p>
 
                 <h3>Why we collect it</h3>
