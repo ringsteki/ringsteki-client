@@ -1,33 +1,33 @@
 {
-  "name": "throneteki-client",
+  "name": "ringsteki-client",
   "version": "1.0.0",
-  "description": "The client code for Throneteki, a browser based implementation of the A Game Of Thrones LCG",
+  "description": "The client code for Ringsteki, a browser based implementation of the Lord of the Rings LCG",
   "main": "index.jsx",
   "scripts": {
     "lint": "eslint . --ext=js --ext=jsx",
     "build-vendor": "webpack -p --config webpack.config.vendor.js --env.prod",
-    "build-vendor-dev": "webpack --config webpack.config.vendor.js",
+    "build-vendor:dev": "webpack --config webpack.config.vendor.js",
+    "build:dev": "webpack --config webpack.config.js",
     "build": "webpack -p --config webpack.config.js --env.prod",
     "start": "webpack-dev-server",
     "start:dev": "HOST=0.0.0.0 SERVER_HOST=ringsteki-server npm run start"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/throneteki/throneteki-client.git"
+    "url": "git+https://github.com/ringsteki/ringsteki-client.git"
   },
   "keywords": [
-    "throneteki",
-    "AGoT",
-    "AGoTLCG",
-    "IronThrone",
+    "ringsteki",
+    "LOTR",
+    "LOTRLCG",
     "LCG"
   ],
-  "author": "Stuart Walsh <stu@ipng.org.uk>",
+  "author": "Eric Lloyd <erlloyd@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/throneteki/throneteki-client/issues"
+    "url": "https://github.com/ringsteki/ringsteki-client/issues"
   },
-  "homepage": "https://github.com/throneteki/throneteki-client#readme",
+  "homepage": "https://github.com/ringsteki/ringsteki-client#readme",
   "devDependencies": {
     "assets-webpack-plugin": "^3.5.1",
     "babel-core": "^6.26.3",
